@@ -2,12 +2,12 @@
 const err=document.querySelector(".err");
 const inputTask=document.getElementById("input-Task");
 const addTaskbtn=document.getElementById("add-task");
-const inputsearch=document.getElementById("search-input");
 const taskList=document.querySelector(".task-list");
 const clearAllBtn=document.querySelector(".clear-all");
 //add a task
 //? click on add task
 addTaskbtn.addEventListener("click", (e) => {
+    e.preventDefault();
     //? check input task is not empty
     if (inputTask.value !==''){
         //? input value and trim
@@ -51,18 +51,41 @@ addTaskbtn.addEventListener("click", (e) => {
     }
 
 });
-
-    
-
-
-
-
-
-
-//edit a task
-
 //delete a task
+//! click on the parent
+taskList.addEventListener("click",(e)=>{
+    e.preventDefault();
+
+    //! check the target is a deletebutton
+    if (e.target.classList.contains("deleteBtn")){
+        //! get  and remove the parent of that deleteBTn
+        e.target.parentElement.remove();
+    }
+});
+
+// edit a task
+taskList.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    if (e.target.classList.contains("editBtn")) {
+        const li = e.target.parentElement;
+        const taskInput = li.querySelector("input");
+
+        if (taskInput.disabled) {
+            // Enable editing
+            taskInput.disabled = false;
+            taskInput.focus();
+            e.target.innerText = "Save";
+        } else {
+            // Save and disable editing
+            taskInput.disabled = true;
+            e.target.innerText = "Edit";
+        }
+    }
+});
 
 //delete all tasks
-
-//search a task
+clearAllBtn.addEventListener("click",(e)=>{
+e.preventDefault();
+taskList.innerHTML="";
+});

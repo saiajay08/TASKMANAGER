@@ -26,10 +26,13 @@ form{
     width:80%;
     margin: 0.5rem 0;
     display: none;
-   
  }
  .task-list{
     margin: 1rem 0;
     list-style: none;
-
  }
+ .task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
